@@ -1,47 +1,47 @@
-# 快捷键脚本运行器
+# Shortcut Script Runner
 
-一个原生 Firefox WebExtension，方向上参考了 `Shortkeys` 的规则管理体验。
+A native Firefox WebExtension inspired by the rule management experience of `Shortkeys`.
 
-功能：
+## Features
 
-- 管理多条“快捷键槽位 -> 规则脚本”配置
-- 每条规则可设置名称、说明、URL 匹配、执行范围、延迟、报错策略
-- 规则输入既支持普通脚本，也支持直接粘贴 `javascript:` bookmarklet，执行前会自动转换
-- 可从弹窗和设置页直接运行某条规则
-- 如果页面正在通过 `fetch` / `XMLHttpRequest` 上传 `File`、`Blob`、`FormData`，会等待上传结束再执行
-- 提供一个参考 `Shortkeys` 风格的设置页，用来管理规则、编辑脚本和查看最近一次运行结果
+- Manage multiple "shortcut slot -> rule script" configurations.
+- Each rule can define a name, description, URL match pattern, run scope, delay, and error handling strategy.
+- Rule input supports both regular scripts and pasted `javascript:` bookmarklets, which are normalized before execution.
+- A rule can be run directly from the popup or the settings page.
+- If a page is uploading `File`, `Blob`, or `FormData` data through `fetch` or `XMLHttpRequest`, execution waits until the upload finishes.
+- Includes a `Shortkeys`-inspired settings page for managing rules, editing scripts, and reviewing the latest run results.
 
-## 文件结构
+## File Structure
 
-- `manifest.json`：Firefox 扩展清单
-- `background.js`：监听快捷键槽位并顺序调度每个标签页
-- `content.js`：页面内执行脚本，等待上传空闲
-- `page-bridge.js`：注入到页面上下文，跟踪上传请求
-- `options.html` / `options.css` / `options.js`：设置页
-- `popup.html` / `popup.css` / `popup.js`：扩展弹窗
+- `manifest.json`: Firefox extension manifest.
+- `background.js`: Listens for shortcut slots and dispatches work across tabs in sequence.
+- `content.js`: Runs page-side scripts and waits until uploads become idle.
+- `page-bridge.js`: Injected into the page context to track upload requests.
+- `options.html` / `options.css` / `options.js`: Settings page.
+- `popup.html` / `popup.css` / `popup.js`: Extension popup.
 
-## 加载方式
+## Loading the Extension
 
-1. 打开 Firefox
-2. 进入 `about:debugging#/runtime/this-firefox`
-3. 点击 “Load Temporary Add-on”
-4. 选择这个目录里的 `manifest.json`
+1. Open Firefox.
+2. Go to `about:debugging#/runtime/this-firefox`.
+3. Click "Load Temporary Add-on".
+4. Select `manifest.json` from this directory.
 
-## 使用方式
+## How to Use
 
-1. 打开扩展的设置页
-2. 创建一条或多条规则，并给规则绑定 `快捷键位 1` 到 `快捷键位 8`
-3. 在 Firefox 里打开 `about:addons`
-4. 点击齿轮菜单，进入 “Manage Extension Shortcuts”
-5. 为 `快捷键位 1` 到 `快捷键位 8` 配置你想要的实际快捷键
-6. 按对应快捷键运行绑定到该槽位的规则
+1. Open the extension settings page.
+2. Create one or more rules and bind them to `Shortcut Slot 1` through `Shortcut Slot 8`.
+3. Open `about:addons` in Firefox.
+4. Open the gear menu and go to "Manage Extension Shortcuts".
+5. Assign the actual hotkeys you want for `Shortcut Slot 1` through `Shortcut Slot 8`.
+6. Press the assigned hotkey to run the rule bound to that slot.
 
-默认建议键位：
+Recommended default shortcuts:
 
-- Windows / Linux：`Ctrl+Shift+1` 到 `Ctrl+Shift+8`
-- macOS：`Control+Shift+1` 到 `Control+Shift+8`
+- Windows / Linux: `Ctrl+Shift+1` to `Ctrl+Shift+8`
+- macOS: `Control+Shift+1` to `Control+Shift+8`
 
-脚本运行环境里可直接使用：
+The script runtime provides direct access to:
 
 - `document` / `window` / `location`
 - `sleep(ms)`
@@ -50,10 +50,10 @@
 - `scriptName`
 - `log(...)`
 
-## 限制说明
+## Limitations
 
-- Firefox 的快捷键命令必须在 `manifest.json` 中预定义，所以当前版本固定提供 8 个快捷键槽位，不支持无限动态新增命令
-- 这组默认键位已避开 Firefox / Chrome 官方文档中常见的下载、书签、开发者工具、隐私窗口等默认快捷键；如果你的系统或输入法另外占用了相同组合，仍需在浏览器快捷键设置里手动调整
-- 只会处理 `http`、`https`、`file` 标签页
-- 当前上传检测主要覆盖 `fetch` 和 `XMLHttpRequest` 的文件型请求
-- 浏览器内部页、扩展页、AMO 页面等受限页面不会执行
+- Firefox shortcut commands must be predefined in `manifest.json`, so this version provides 8 fixed shortcut slots and does not support unlimited dynamic shortcut creation.
+- These default shortcuts were chosen to avoid common browser defaults such as downloads, bookmarks, developer tools, and private window shortcuts in Firefox and Chrome. If your OS or input method uses the same combinations, you still need to reassign them manually in the browser shortcut settings.
+- Only `http`, `https`, and `file` tabs are processed.
+- Upload detection currently focuses on file-based requests made through `fetch` and `XMLHttpRequest`.
+- Restricted pages such as internal browser pages, extension pages, and AMO pages are not supported.
