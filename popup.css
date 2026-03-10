@@ -1,0 +1,76 @@
+:root {
+  --bg: #fcf7ed;
+  --panel: #fffaf2;
+  --line: rgba(35, 34, 31, 0.12);
+  --text: #1e1c18;
+  --muted: #625b50;
+  --accent: #0f766e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 360px;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  background: linear-gradient(180deg, #f8f2e7 0%, var(--bg) 100%);
+  color: var(--text);
+}
+
+.popup {
+  padding: 16px;
+}
+
+.popup__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.popup__header p,
+.popup__header a {
+  margin: 0;
+}
+
+.popup__header a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.popup-rule-list {
+  display: grid;
+  gap: 10px;
+}
+
+.popup-rule-button {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--panel);
+  text-align: left;
+  cursor: pointer;
+}
+
+.popup-rule-button strong,
+.popup-rule-button span,
+.popup-rule-button small {
+  display: block;
+}
+
+.popup-rule-button span,
+.popup-rule-button small {
+  margin-top: 6px;
+  color: var(--muted);
+}
+
+.popup-status {
+  margin-top: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}

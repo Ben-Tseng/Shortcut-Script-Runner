@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>快捷键脚本运行器</title>
+    <link rel="stylesheet" href="options.css">
+  </head>
+  <body>
+    <div class="page-shell">
+      <aside class="hero-panel">
+        <div class="hero-panel__inner">
+          <p class="eyebrow">Firefox 快捷键脚本运行器</p>
+          <h1>用快捷键快速运行脚本</h1>
+          <p class="hero-copy">
+            每条规则都可以绑定一个快捷键槽位、URL 匹配模式和执行脚本。按下对应快捷键后，扩展会顺序遍历标签页，在上传完成后再执行页面脚本。
+          </p>
+          <div class="slot-list" id="slot-overview"></div>
+          <ul class="hero-list">
+            <li>支持多条规则，风格上接近 Shortkeys 的规则管理页</li>
+            <li>规则可绑定到 8 个固定快捷键槽位</li>
+            <li>槽位实际按键可在 Firefox 扩展快捷键页修改</li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="content-panel">
+        <section class="panel panel--list">
+          <div class="panel__header">
+            <div>
+              <p class="panel__eyebrow">规则列表</p>
+              <h2>快捷键规则</h2>
+            </div>
+            <div class="button-row">
+              <button id="duplicate-rule-button" class="button button--ghost">复制规则</button>
+              <button id="add-rule-button" class="button button--primary">新增规则</button>
+            </div>
+          </div>
+
+          <div id="rule-list" class="rule-list"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel__header">
+            <div>
+              <p class="panel__eyebrow">规则编辑</p>
+              <h2>规则编辑器</h2>
+            </div>
+            <div class="button-row">
+              <button id="delete-rule-button" class="button button--ghost">删除规则</button>
+              <button id="save-button" class="button button--primary">保存规则</button>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <label class="field">
+              <span>规则名称</span>
+              <input id="rule-name" type="text" maxlength="80" placeholder="例如：批量点击下载按钮">
+            </label>
+
+            <label class="field">
+              <span>绑定快捷键槽位</span>
+              <select id="rule-slot"></select>
+            </label>
+
+            <label class="field field--full">
+              <span>规则说明</span>
+              <input id="rule-description" type="text" maxlength="180" placeholder="简短说明这个脚本要做什么">
+            </label>
+
+            <label class="field">
+              <span>URL 匹配</span>
+              <input id="match-pattern" type="text" placeholder="* 或 https://example.com/*">
+            </label>
+
+            <label class="field">
+              <span>运行范围</span>
+              <select id="run-scope">
+                <option value="all">所有窗口里的网页标签页</option>
+                <option value="current-window">仅当前窗口</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>标签页间隔（毫秒）</span>
+              <input id="delay-between-tabs" type="number" min="0" step="50">
+            </label>
+
+            <label class="field field--checkbox">
+              <input id="rule-enabled" type="checkbox">
+              <span>启用这条规则</span>
+            </label>
+
+            <label class="field field--checkbox">
+              <input id="stop-on-error" type="checkbox">
+              <span>遇到报错时停止后续标签页</span>
+            </label>
+          </div>
+
+          <p class="panel__hint">
+            Firefox 的扩展命令需要预先定义，所以这里提供 8 个快捷键槽位。这里既可以填普通脚本，也可以直接粘贴 `javascript:` 开头的 bookmarklet，运行前会自动转换。脚本里可直接使用 `document`、`location`、`sleep(ms)`、`tabUrl`、`tabTitle`、`scriptName`、`log(...)`。
+          </p>
+
+          <label class="editor">
+            <span class="editor__label">自定义 JavaScript</span>
+            <textarea id="user-script" spellcheck="false"></textarea>
+          </label>
+
+          <div class="button-row button-row--spaced">
+            <button id="run-active-rule-button" class="button">运行当前规则</button>
+            <button id="open-shortcuts-button" class="button button--ghost">打开 Firefox 快捷键设置说明</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel__header">
+            <div>
+              <p class="panel__eyebrow">执行记录</p>
+              <h2>最近一次执行结果</h2>
+            </div>
+            <button id="refresh-results" class="button button--ghost">刷新</button>
+          </div>
+
+          <div id="status-banner" class="status-banner">尚未执行</div>
+          <div id="results-list" class="results-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <template id="rule-item-template">
+      <button class="rule-item" type="button">
+        <div class="rule-item__top">
+          <strong class="rule-item__title"></strong>
+          <span class="rule-item__slot"></span>
+        </div>
+        <p class="rule-item__meta"></p>
+      </button>
+    </template>
+
+    <template id="result-item-template">
+      <article class="result-item">
+        <div class="result-item__top">
+          <strong class="result-item__title"></strong>
+          <span class="result-item__badge"></span>
+        </div>
+        <p class="result-item__url"></p>
+        <p class="result-item__detail"></p>
+      </article>
+    </template>
+
+    <script src="options.js"></script>
+  </body>
+</html>

@@ -1,0 +1,123 @@
+{
+  "manifest_version": 2,
+  "name": "快捷键脚本运行器",
+  "version": "1.0.0",
+  "description": "用多个快捷键位批量运行自定义脚本，执行前会等待页面上传完成。",
+  "permissions": [
+    "tabs",
+    "storage",
+    "<all_urls>"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "icons": {
+    "48": "icon.svg",
+    "96": "icon.svg"
+  },
+  "browser_action": {
+    "default_title": "快捷键脚本运行器",
+    "default_icon": "icon.svg",
+    "default_popup": "popup.html"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "commands": {
+    "run-slot-1": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+1",
+        "windows": "Ctrl+Shift+1",
+        "linux": "Ctrl+Shift+1",
+        "mac": "MacCtrl+Shift+1"
+      },
+      "description": "运行绑定到快捷键位 1 的规则"
+    },
+    "run-slot-2": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+2",
+        "windows": "Ctrl+Shift+2",
+        "linux": "Ctrl+Shift+2",
+        "mac": "MacCtrl+Shift+2"
+      },
+      "description": "运行绑定到快捷键位 2 的规则"
+    },
+    "run-slot-3": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+3",
+        "windows": "Ctrl+Shift+3",
+        "linux": "Ctrl+Shift+3",
+        "mac": "MacCtrl+Shift+3"
+      },
+      "description": "运行绑定到快捷键位 3 的规则"
+    },
+    "run-slot-4": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+4",
+        "windows": "Ctrl+Shift+4",
+        "linux": "Ctrl+Shift+4",
+        "mac": "MacCtrl+Shift+4"
+      },
+      "description": "运行绑定到快捷键位 4 的规则"
+    },
+    "run-slot-5": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+5",
+        "windows": "Ctrl+Shift+5",
+        "linux": "Ctrl+Shift+5",
+        "mac": "MacCtrl+Shift+5"
+      },
+      "description": "运行绑定到快捷键位 5 的规则"
+    },
+    "run-slot-6": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+6",
+        "windows": "Ctrl+Shift+6",
+        "linux": "Ctrl+Shift+6",
+        "mac": "MacCtrl+Shift+6"
+      },
+      "description": "运行绑定到快捷键位 6 的规则"
+    },
+    "run-slot-7": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+7",
+        "windows": "Ctrl+Shift+7",
+        "linux": "Ctrl+Shift+7",
+        "mac": "MacCtrl+Shift+7"
+      },
+      "description": "运行绑定到快捷键位 7 的规则"
+    },
+    "run-slot-8": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+8",
+        "windows": "Ctrl+Shift+8",
+        "linux": "Ctrl+Shift+8",
+        "mac": "MacCtrl+Shift+8"
+      },
+      "description": "运行绑定到快捷键位 8 的规则"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    "page-bridge.js"
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "upload-aware-script-runner@local"
+    }
+  }
+}
