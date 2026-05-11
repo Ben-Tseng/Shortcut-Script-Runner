@@ -173,8 +173,8 @@ javascript:(function(){function g(w,d){try{d.push(w.document);for(let i=0;i<w.fr
     const arvtResult=getArvtResult(docs);
     let suffix="";
     if(arvtResult==="fail"){suffix="\nARVT results: Fail；Deny for I2V fail";}
-    else if(arvtResult==="skip"){suffix="\nARVT results: ID skipped";}
-    else{suffix="\nARVT results: Pass";}
+    else if(arvtResult==="skip"){suffix="\nARVT results: ID skipped.Pass BL ID.";}
+    else{suffix="\nARVT results: Pass.Pass BL ID";}
     o(annotationTA,businessName+suffix);
     if(arvtResult==="fail"){runI2vFailFlow(docs);}
     return true;
@@ -827,8 +827,8 @@ if (btnHost && btnHost.shadowRoot) {
       if(annotationTA){
         let suffix="";
         if(arvtResult==="fail")  suffix="\nARVT results: Fail；Deny for I2V fail";
-        else if(arvtResult==="skip") suffix="\nARVT results: ID skipped";
-        else suffix="\nARVT results: Pass.";
+        else if(arvtResult==="skip") suffix="\nARVT results: ID skipped.Pass BL ID.";
+        else suffix="\nARVT results: Pass.Pass BL ID";
         o(annotationTA, idNum+suffix);
       }
       if(arvtResult==="fail") runI2vFailFlow(docs);
@@ -846,7 +846,7 @@ if (btnHost && btnHost.shadowRoot) {
         let suffix="";
         if(arvtResult==="fail")  suffix="\nARVT results: Fail；Deny for I2V fail";
         else if(arvtResult==="skip") suffix="\nARVT results: ID skipped";
-        else suffix="\nARVT results: Pass.";
+        else suffix="\nARVT results: Pass.Pass BL ID";
         o(annotationTA, "RFD ID for DOB."+suffix);
       }
       if(arvtResult==="fail") runI2vFailFlow(docs);
