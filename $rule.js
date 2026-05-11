@@ -829,7 +829,7 @@ if (btnHost && btnHost.shadowRoot) {
         if(arvtResult==="fail")  suffix="\nARVT results: Fail；Deny for I2V fail";
         else if(arvtResult==="skip") suffix="\nARVT results: ID skipped.Pass BL ID.";
         else suffix="\nARVT results: Pass.Pass BL ID";
-        o(annotationTA, idNum+suffix);
+        o(annotationTA, suffix);
       }
       if(arvtResult==="fail") runI2vFailFlow(docs);
       // ── 新增结束 ─────────────────────────────────────────────
@@ -845,7 +845,7 @@ if (btnHost && btnHost.shadowRoot) {
       if(annotationTA){
         let suffix="";
         if(arvtResult==="fail")  suffix="\nARVT results: Fail；Deny for I2V fail";
-        else if(arvtResult==="skip") suffix="\nARVT results: ID skipped";
+        else if(arvtResult==="skip") suffix="\nARVT results: ID skipped.Pass ID";
         else suffix="\nARVT results: Pass.Pass BL ID";
         o(annotationTA, "RFD ID for DOB."+suffix);
       }
